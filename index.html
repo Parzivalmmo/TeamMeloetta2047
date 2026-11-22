@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="slate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Meloetta 2047</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       8 TEMAS VISUALES (Persistidos en localStorage)
+       ========================================================================== */
+    :root,
+    [data-theme="slate"] {
+      --bg-primary: #0f172a;
+      --bg-header: linear-gradient(180deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+      --bg-surface: #1e293b;
+      --bg-surface-elevated: #273549;
+      --bg-card-row: rgba(15, 23, 42, 0.6);
+      --border-subtle: rgba(148, 163, 184, 0.22);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-contrast: #0f172a;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --reminder-bg: linear-gradient(90deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.1));
+      --reminder-border: rgba(245, 158, 11, 0.45);
+      --reminder-text: #fde68a;
+    }
+
+    [data-theme="neon"] {
+      --bg-primary: #090612;
+      --bg-header: linear-gradient(180deg, rgba(28, 16, 56, 0.96) 0%, rgba(9, 6, 18, 0.98) 100%);
+      --bg-surface: #140e29;
+      --bg-surface-elevated: #1f163d;
+      --bg-card-row: rgba(10, 7, 22, 0.72);
+      --border-subtle: rgba(217, 70, 239, 0.28);
+      --text-main: #fdf4ff;
+      --text-muted: #c4b5fd;
+      --accent: #e879f9;
+      --accent-contrast: #090612;
+      --accent-soft: rgba(232, 121, 249, 0.18);
+      --reminder-bg: linear-gradient(90deg, rgba(6, 182, 212, 0.18), rgba(217, 70, 239, 0.14));
+      --reminder-border: rgba(34, 211, 238, 0.45);
+      --reminder-text: #67e8f9;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-header: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f8fafc;
+      --bg-card-row: #f1f5f9;
+      --border-subtle: rgba(100, 116, 139, 0.25);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent: #0284c7;
+      --accent-contrast: #ffffff;
+      --accent-soft: rgba(2, 132, 199, 0.14);
+      --reminder-bg: linear-gradient(90deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.8));
+      --reminder-border: rgba(217, 119, 6, 0.45);
+      --reminder-text: #92400e;
+    }
+
+    [data-theme="hoenn"] {
+      --bg-primary: #071c15;
+      --bg-header: linear-gradient(180deg, rgba(13, 51, 38, 0.95) 0%, rgba(7, 28, 21, 0.98) 100%);
+      --bg-surface: #0d2b21;
+      --bg-surface-elevated: #143d2f;
+      --bg-card-row: rgba(6, 22, 17, 0.65);
+      --border-subtle: rgba(52, 211, 153, 0.25);
+      --text-main: #ecfdf5;
+      --text-muted: #6ee7b7;
+      --accent: #10b981;
+      --accent-contrast: #042f2e;
+      --accent-soft: rgba(16, 185, 129, 0.18);
+      --reminder-bg: linear-gradient(90deg, rgba(250, 204, 21, 0.18), rgba(16, 185, 129, 0.12));
+      --reminder-border: rgba(250, 204, 21, 0.45);
+      --reminder-text: #fef08a;
+    }
+
+    [data-theme="heatran"] {
+      --bg-primary: #1c0c08;
+      --bg-header: linear-gradient(180deg, rgba(58, 22, 14, 0.95) 0%, rgba(28, 12, 8, 0.98) 100%);
+      --bg-surface: #2b130d;
+      --bg-surface-elevated: #3d1c14;
+      --bg-card-row: rgba(22, 9, 6, 0.68);
+      --border-subtle: rgba(251, 146, 60, 0.28);
+      --text-main: #fff7ed;
+      --text-muted: #fdba74;
+      --accent: #f97316;
+      --accent-contrast: #1c0c08;
+      --accent-soft: rgba(249, 115, 22, 0.2);
+      --reminder-bg: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.14));
+      --reminder-border: rgba(251, 191, 36, 0.45);
+      --reminder-text: #fde68a;
+    }
+
+    [data-theme="blastoise"] {
+      --bg-primary: #07192c;
+      --bg-header: linear-gradient(180deg, rgba(12, 46, 82, 0.95) 0%, rgba(7, 25, 44, 0.98) 100%);
+      --bg-surface: #0e2947;
+      --bg-surface-elevated: #163a63;
+      --bg-card-row: rgba(6, 20, 36, 0.65);
+      --border-subtle: rgba(56, 189, 248, 0.28);
+      --text-main: #f0f9ff;
+      --text-muted: #7dd3fc;
+      --accent: #0ea5e9;
+      --accent-contrast: #041526;
+      --accent-soft: rgba(14, 165, 233, 0.2);
+      --reminder-bg: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(250, 204, 21, 0.14));
+      --reminder-border: rgba(125, 211, 252, 0.45);
+      --reminder-text: #bae6fd;
+    }
+
+    [data-theme="psychic"] {
+      --bg-primary: #190a24;
+      --bg-header: linear-gradient(180deg, rgba(49, 18, 71, 0.95) 0%, rgba(25, 10, 36, 0.98) 100%);
+      --bg-surface: #271138;
+      --bg-surface-elevated: #36184d;
+      --bg-card-row: rgba(20, 8, 29, 0.68);
+      --border-subtle: rgba(192, 132, 252, 0.28);
+      --text-main: #faf5ff;
+      --text-muted: #d8b4fe;
+      --accent: #c084fc;
+      --accent-contrast: #190a24;
+      --accent-soft: rgba(192, 132, 252, 0.2);
+      --reminder-bg: linear-gradient(90deg, rgba(244, 114, 182, 0.2), rgba(192, 132, 252, 0.15));
+      --reminder-border: rgba(244, 114, 182, 0.45);
+      --reminder-text: #fbcfe8;
+    }
+
+    [data-theme="gameboy"] {
+      --bg-primary: #1b2615;
+      --bg-header: linear-gradient(180deg, #2d3e22 0%, #1b2615 100%);
+      --bg-surface: #26361d;
+      --bg-surface-elevated: #344927;
+      --bg-card-row: rgba(20, 29, 15, 0.72);
+      --border-subtle: rgba(155, 188, 15, 0.35);
+      --text-main: #e4f3c8;
+      --text-muted: #9bbc0f;
+      --accent: #9bbc0f;
+      --accent-contrast: #0f1a0a;
+      --accent-soft: rgba(155, 188, 15, 0.2);
+      --reminder-bg: linear-gradient(90deg, rgba(155, 188, 15, 0.22), rgba(139, 172, 15, 0.14));
+      --reminder-border: rgba(155, 188, 15, 0.55);
+      --reminder-text: #d9f99d;
+    }
+
+    /* ==========================================================================
+       TIPOGRAFÍA CÓMIC MEDIANA Y ESTILOS BASE
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Comic Neue', 'Balsamiq Sans', cursive, sans-serif;
+      font-size: 17.5px;
+      font-weight: 700;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.55;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .app-header {
+      background: var(--bg-header);
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    /* Selector de temas */
+    .theme-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .theme-btn {
+      font-family: 'Balsamiq Sans', 'Comic Neue', cursive, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.7rem;
+      border-radius: 9999px;
+      border: 2px solid var(--border-subtle);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .theme-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    .theme-btn.active {
+      background-color: var(--accent);
+      color: var(--accent-contrast);
+      border-color: var(--accent);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Barra superior del equipo (Solo sprites grandes sin texto) */
+    .team-bar {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: 1.15rem;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+    }
+
+    .team-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .team-title-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .team-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 0.8rem;
+      text-decoration: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.32);
+    }
+
+    .team-link-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .member-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-card-row);
+      border: 2px solid var(--border-subtle);
+      border-radius: 1rem;
+      padding: 0.45rem 0.65rem;
+      transition: transform 0.16s ease, border-color 0.16s ease;
+      cursor: help;
+    }
+
+    .member-chip:hover {
+      transform: translateY(-3px) scale(1.05);
+      border-color: var(--accent);
+    }
+
+    .member-chip img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
+    }
+
+    /* Pestañas de regiones */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: 1rem;
+      padding: 0.55rem;
+    }
+
+    .tab-btn {
+      font-family: 'Balsamiq Sans', 'Comic Neue', cursive, sans-serif;
+      padding: 0.55rem 1.05rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      background: transparent;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background-color: var(--accent-soft);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-contrast);
+      background-color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Secciones y tarjetas de ciudades */
+    .region-section {
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .region-section.is-visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .region-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    .city-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: 1.15rem;
+      padding: 1.15rem 1.3rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .city-title {
+      font-family: 'Balsamiq Sans', 'Comic Neue', cursive, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .city-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 9999px;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .strategy-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .strategy-item {
+      background-color: var(--bg-card-row);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 0.85rem;
+      padding: 0.55rem 0.85rem;
+      font-size: 1.04rem;
+      color: var(--text-main);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .strategy-item.sub-step {
+      margin-left: 1.1rem;
+      background-color: var(--bg-surface-elevated);
+      border-left: 4px solid var(--accent);
+      font-size: 1rem;
+    }
+
+    .reminder-box {
+      background: var(--reminder-bg);
+      border: 2px solid var(--reminder-border);
+      color: var(--reminder-text);
+      border-radius: 0.85rem;
+      padding: 0.65rem 0.95rem;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* ==========================================================================
+       TARJETAS DE RUTA (panel del líder a la izquierda + sprites con nombre)
+       ========================================================================== */
+    .route-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: 1.15rem;
+      padding: 1.15rem 1.3rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .route-main {
+      display: flex;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+
+    .route-leader {
+      flex: 0 0 12rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.3rem;
+      padding-right: 1.25rem;
+      border-right: 1px dashed var(--border-subtle);
+    }
+
+    .route-avatar {
+      position: relative;
+      width: 4.75rem;
+      height: 4.75rem;
+      border-radius: 9999px;
+      background-color: #000;
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 0.35rem;
+    }
+
+    .route-avatar-num {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .route-avatar img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #000;
+    }
+
+    .route-name {
+      font-family: 'Balsamiq Sans', 'Comic Neue', cursive, sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-main);
+    }
+
+    .route-type {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .route-chip {
+      margin-top: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      background-color: var(--bg-card-row);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .route-team {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem 2.5rem;
+    }
+
+    .route-mon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .route-mon img {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .route-mon-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .route-strategy {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 640px) {
+      .route-main {
+        flex-direction: column;
+        align-items: center;
+      }
+      .route-leader {
+        flex-basis: auto;
+        width: 100%;
+        padding: 0 0 1rem;
+        border-right: none;
+        border-bottom: 1px dashed var(--border-subtle);
+      }
+    }
+
+    /* ==========================================================================
+       SPRITES DE POKÉMON (SOLO IMAGEN GRANDE, SIN TEXTO VISIBLE)
+       ========================================================================== */
+    .pk-sprite-only {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      background-color: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 0.7rem;
+      padding: 0.12rem 0.25rem;
+      margin: 0 0.1rem;
+      transition: transform 0.14s ease, border-color 0.14s ease;
+      cursor: help;
+    }
+
+    .pk-sprite-only:hover {
+      transform: scale(1.14);
+      border-color: var(--accent);
+    }
+
+    .pk-sprite {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
+    }
+
+    .pk-fallback-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1.5px solid var(--accent);
+      border-radius: 0.5rem;
+      padding: 0.15rem 0.45rem;
+    }
+
+    /* ==========================================================================
+       ETIQUETAS DE ATAQUES Y OBJETOS X (CADA UNO CON COLOR DISTINTO)
+       ========================================================================== */
+    .move-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.12rem 0.58rem;
+      border-radius: 0.55rem;
+      font-weight: 700;
+      font-size: 0.96rem;
+      letter-spacing: 0.01em;
+      border: 1.5px solid transparent;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+      white-space: nowrap;
+    }
+
+    /* Agua */
+    .mv-salpicar {
+      background-color: #0284c7;
+      color: #ffffff;
+      border-color: #7dd3fc;
+    }
+    .mv-burbuja {
+      background-color: #06b6d4;
+      color: #042f2e;
+      border-color: #a5f3fc;
+    }
+    .mv-danza-lluvia {
+      background-color: #1d4ed8;
+      color: #dbeafe;
+      border-color: #93c5fd;
+    }
+
+    /* Hielo */
+    .mv-ventisca {
+      background-color: #67e8f9;
+      color: #083344;
+      border-color: #cffafe;
+    }
+    .mv-rayo-hielo {
+      background-color: #38bdf8;
+      color: #082f49;
+      border-color: #bae6fd;
+    }
+
+    /* Fuego */
+    .mv-estallido {
+      background-color: #dc2626;
+      color: #ffffff;
+      border-color: #fca5a5;
+    }
+    .mv-humareda {
+      background-color: #ea580c;
+      color: #ffffff;
+      border-color: #fdba74;
+    }
+    .mv-calcinacion {
+      background-color: #b45309;
+      color: #fef3c7;
+      border-color: #fcd34d;
+    }
+    .mv-dia-soleado {
+      background-color: #f59e0b;
+      color: #271300;
+      border-color: #fef08a;
+    }
+
+    /* Normal / Apoyo */
+    .mv-vozarron {
+      background-color: #ec4899;
+      color: #ffffff;
+      border-color: #fbcfe8;
+    }
+    .mv-explosion {
+      background-color: #7f1d1d;
+      color: #fecaca;
+      border-color: #f87171;
+    }
+    .mv-refuerzo {
+      background-color: #10b981;
+      color: #022c22;
+      border-color: #6ee7b7;
+    }
+    .mv-sorpresa {
+      background-color: #a855f7;
+      color: #ffffff;
+      border-color: #e9d5ff;
+    }
+
+    /* Siniestro / Bicho / Psíquico / Eléctrico */
+    .mv-buena-baza {
+      background-color: #312e81;
+      color: #e0e7ff;
+      border-color: #818cf8;
+    }
+    .mv-ida-y-vuelta {
+      background-color: #65a30d;
+      color: #ffffff;
+      border-color: #bef264;
+    }
+    .mv-psiquico {
+      background-color: #d946ef;
+      color: #ffffff;
+      border-color: #f5d0fe;
+    }
+    .mv-rayo {
+      background-color: #eab308;
+      color: #1c1917;
+      border-color: #fef08a;
+    }
+
+    /* Objetos de combate X */
+    .mv-especial-x {
+      background-color: #6366f1;
+      color: #ffffff;
+      border-color: #c7d2fe;
+    }
+    .mv-precision-x {
+      background-color: #14b8a6;
+      color: #042f2e;
+      border-color: #99f6e4;
+    }
+    .mv-velocidad-x {
+      background-color: #84cc16;
+      color: #1a2e05;
+      border-color: #d9f99d;
+    }
+    .mv-ataque-especial {
+      background-color: #8b5cf6;
+      color: #ffffff;
+      border-color: #ddd6fe;
+    }
+
+    @media (max-width: 640px) {
+      .strategy-item.sub-step {
+        margin-left: 0.5rem;
+      }
+      .member-chip img {
+        width: 58px;
+        height: 58px;
+      }
+      .pk-sprite {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabecera principal con selector de 8 temas -->
+  <header class="app-header py-5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-widest font-bold" style="color: var(--accent);">Guía Visual de Estrategia &amp; Rotaciones</p>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Team Meloetta 2047</h1>
+        </div>
+        <p class="text-sm" style="color: var(--text-muted);">
+          Hoenn · Teselia · Kanto · Johto · Sinnoh
+        </p>
+      </div>
+
+      <!-- Selector de temas -->
+      <div class="theme-switcher" role="group" aria-label="Selector de tema visual">
+        <span class="text-xs uppercase tracking-wider mr-1" style="color: var(--text-muted);">🎨 Tema:</span>
+        <button type="button" class="theme-btn active" data-theme-value="slate">Meloetta Slate</button>
+        <button type="button" class="theme-btn" data-theme-value="neon">Noche Neón</button>
+        <button type="button" class="theme-btn" data-theme-value="light">Modo Claro</button>
+        <button type="button" class="theme-btn" data-theme-value="hoenn">Bosque Hoenn</button>
+        <button type="button" class="theme-btn" data-theme-value="heatran">Volcán Heatran</button>
+        <button type="button" class="theme-btn" data-theme-value="blastoise">Océano Blastoise</button>
+        <button type="button" class="theme-btn" data-theme-value="psychic">Galaxia Psíquico</button>
+        <button type="button" class="theme-btn" data-theme-value="gameboy">Retro GameBoy</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- Barra del equipo principal (solo sprites grandes sin texto) -->
+    <section class="team-bar" aria-label="Equipo principal">
+      <div class="team-legend">
+        <div class="team-title-group">
+          <span class="text-base font-bold" style="color: var(--text-muted);">Equipo Principal de la Ruta</span>
+          <a href="https://pokepast.es/981af348541f712e" target="_blank" rel="noopener noreferrer" class="team-link-btn">
+            🔗 Ver Poképaste (Team usado)
+          </a>
+        </div>
+        <div class="team-members">
+          <span class="member-chip" title="Blastoise">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/blastoise.png" data-pk="blastoise" alt="Blastoise" title="Blastoise">
+          </span>
+          <span class="member-chip" title="Vanilluxe">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/vanilluxe.png" data-pk="vanilluxe" alt="Vanilluxe" title="Vanilluxe">
+          </span>
+          <span class="member-chip" title="Heatran">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/heatran.png" data-pk="heatran" alt="Heatran" title="Heatran">
+          </span>
+          <span class="member-chip" title="Typhlosion">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/typhlosion.png" data-pk="typhlosion" alt="Typhlosion" title="Typhlosion">
+          </span>
+          <span class="member-chip" title="Meloetta">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/meloetta.png" data-pk="meloetta" alt="Meloetta" title="Meloetta">
+          </span>
+          <span class="member-chip" title="Weezing">
+            <img src="https://play.pokemonshowdown.com/sprites/gen5/weezing.png" data-pk="weezing" alt="Weezing" title="Weezing">
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pestañas de selección de región -->
+    <nav class="tabs-nav" aria-label="Regiones">
+      <button class="tab-btn active" data-region="all">Todas las Regiones</button>
+      <button class="tab-btn" data-region="hoenn">1. Hoenn</button>
+      <button class="tab-btn" data-region="teselia">2. Teselia</button>
+      <button class="tab-btn" data-region="kanto">3. Kanto</button>
+      <button class="tab-btn" data-region="johto">4. Johto</button>
+      <button class="tab-btn" data-region="sinnoh">5. Sinnoh</button>
+    </nav>
+
+    <!-- Contenedor dinámico donde se renderizan las regiones ordenadas -->
+    <div id="guide-content" class="space-y-8"></div>
+  </main>
+
+  <script>
+    /**
+     * Diccionario de Pokémon mencionados en la guía mapeados a su slug oficial de Pokémon Showdown.
+     */
+    const POKEMON_SLUGS = {
+      // Miembros del equipo
+      "Blastoise": "blastoise",
+      "Blastoice": "blastoise",
+      "Vanilluxe": "vanilluxe",
+      "Vaniluxe": "vanilluxe",
+      "Heatran": "heatran",
+      "Typhlosion": "typhlosion",
+      "Typlhosion": "typhlosion",
+      "Tyhlosion": "typhlosion",
+      "Typlosion": "typhlosion",
+      "Typhlsion": "typhlosion",
+      "Typlhsion": "typhlosion",
+      "Typlhsoion": "typhlosion",
+      "Meloetta": "meloetta",
+      "Weezing": "weezing",
+
+      // Hoenn
+      "Staraptor": "staraptor",
+      "Hitmontop": "hitmontop",
+      "Houndoom": "houndoom",
+      "Haundoom": "houndoom",
+      "Arcanine": "arcanine",
+      "Pelipper": "pelipper",
+      "Swellow": "swellow",
+      "Masquerain": "masquerain",
+      "Altaria": "altaria",
+      "Noctowl": "noctowl",
+
+      // Teselia
+      "Gliscor": "gliscor",
+      "Shuckle": "shuckle",
+      "Volcarona": "volcarona",
+      "Flygon": "flygon",
+      "Fluygon": "flygon",
+      "Milotic": "milotic",
+      "Emolga": "emolga",
+      "Galvantula": "galvantula",
+      "Sandslash": "sandslash",
+      "Steelix": "steelix",
+      "Torterra": "torterra",
+      "Excadrill": "excadrill",
+      "Unfezant": "unfezant",
+      "Swanna": "swanna",
+      "Beartic": "beartic",
+      "Slowbro": "slowbro",
+      "Serperior": "serperior",
+      "Dragonite": "dragonite",
+      "Aggron": "aggron",
+      "Druddigon": "druddigon",
+      "Hydreigon": "hydreigon",
+      "Haxorus": "haxorus",
+
+      // Kanto
+      "Metagross": "metagross",
+      "Slowking": "slowking",
+      "Lapras": "lapras",
+      "Scizor": "scizor",
+      "Snorlax": "snorlax",
+      "Ariados": "ariados",
+      "Beedrill": "beedrill",
+      "Tentacruel": "tentacruel",
+      "Nidoqueen": "nidoqueen",
+      "Zoroark": "zoroark",
+      "Gengar": "gengar",
+      "Electrode": "electrode",
+      "Toxicroak": "toxicroak",
+      "Toxicoak": "toxicroak",
+      "Tyranitar": "tyranitar",
+      "Golem": "golem",
+      "Swampert": "swampert",
+      "Ludicolo": "ludicolo",
+      "Kabutops": "kabutops",
+      "Relicanth": "relicanth",
+      "Relican": "relicanth",
+      "Carracosta": "carracosta",
+      "Poliwrath": "poliwrath",
+      "Kingdra": "kingdra",
+      "Golduck": "golduck",
+      "Floatzel": "floatzel",
+
+      // Johto
+      "Klinklang": "klinklang",
+      "Togekiss": "togekiss",
+      "Tauros": "tauros",
+      "Dodrio": "dodrio",
+      "Ambipom": "ambipom",
+      "Aimbipom": "ambipom",
+      "Cinccino": "cinccino",
+      "Ursaring": "ursaring",
+      "Forretress": "forretress",
+      "Ledian": "ledian",
+      "Scyther": "scyther",
+      "Butterfree": "butterfree",
+      "Articuno": "articuno",
+      "Mamoswine": "mamoswine",
+      "Froslass": "froslass",
+      "Walrein": "walrein",
+      "Dewgong": "dewgong",
+      "Glalie": "glalie",
+      "Pidgeot": "pidgeot",
+
+      // Sinnoh
+      "Probopass": "probopass",
+      "Mienshao": "mienshao",
+      "Breloom": "breloom",
+      "Breeloom": "breloom",
+      "Lanturn": "lanturn",
+      "Leavanny": "leavanny",
+      "Whimsicott": "whimsicott",
+      "Rotom": "rotom",
+      "Roserade": "roserade",
+      "Ninetales": "ninetales",
+      "Sharpedo": "sharpedo",
+      "Mantine": "mantine",
+      "Gyarados": "gyarados"
+    };
+
+    /**
+     * Diccionario de ataques y objetos X con su clase CSS de color distintivo.
+     * Ordenado de mayor a menor longitud al construir la expresión regular para evitar colisiones.
+     */
+    const MOVE_STYLES = {
+      "Ataque Especial": { label: "Ataque Especial", cls: "mv-ataque-especial" },
+      "Danza Lluvia": { label: "Danza Lluvia", cls: "mv-danza-lluvia" },
+      "Danza lluvia": { label: "Danza Lluvia", cls: "mv-danza-lluvia" },
+      "Ida y Vuelta": { label: "Ida y Vuelta", cls: "mv-ida-y-vuelta" },
+      "Ida y vuelta": { label: "Ida y Vuelta", cls: "mv-ida-y-vuelta" },
+      "Día Soleado": { label: "Día Soleado", cls: "mv-dia-soleado" },
+      "Dia Soleado": { label: "Día Soleado", cls: "mv-dia-soleado" },
+      "Velocidad X": { label: "Velocidad X", cls: "mv-velocidad-x" },
+      "Precisión X": { label: "Precisión X", cls: "mv-precision-x" },
+      "Precision X": { label: "Precisión X", cls: "mv-precision-x" },
+      "Precision x": { label: "Precisión X", cls: "mv-precision-x" },
+      "Especial X": { label: "Especial X", cls: "mv-especial-x" },
+      "Especial x": { label: "Especial X", cls: "mv-especial-x" },
+      "Rayo Hielo": { label: "Rayo Hielo", cls: "mv-rayo-hielo" },
+      "Buena Baza": { label: "Buena Baza", cls: "mv-buena-baza" },
+      "Buena baza": { label: "Buena Baza", cls: "mv-buena-baza" },
+      "Buenza baza": { label: "Buena Baza", cls: "mv-buena-baza" },
+      "Calcinación": { label: "Calcinación", cls: "mv-calcinacion" },
+      "Calcinacion": { label: "Calcinación", cls: "mv-calcinacion" },
+      "Estallido": { label: "Estallido", cls: "mv-estallido" },
+      "Explosión": { label: "Explosión", cls: "mv-explosion" },
+      "Explosion": { label: "Explosión", cls: "mv-explosion" },
+      "Explocion": { label: "Explosión", cls: "mv-explosion" },
+      "Ventisca": { label: "Ventisca", cls: "mv-ventisca" },
+      "Ventica": { label: "Ventisca", cls: "mv-ventisca" },
+      "Vozarrón": { label: "Vozarrón", cls: "mv-vozarron" },
+      "Vozarron": { label: "Vozarrón", cls: "mv-vozarron" },
+      "vozarron": { label: "Vozarrón", cls: "mv-vozarron" },
+      "Salpicar": { label: "Salpicar", cls: "mv-salpicar" },
+      "Salpica": { label: "Salpicar", cls: "mv-salpicar" },
+      "Refuerzo": { label: "Refuerzo", cls: "mv-refuerzo" },
+      "Sorpresa": { label: "Sorpresa", cls: "mv-sorpresa" },
+      "Humareda": { label: "Humareda", cls: "mv-humareda" },
+      "Psíquico": { label: "Psíquico", cls: "mv-psiquico" },
+      "Psiquico": { label: "Psíquico", cls: "mv-psiquico" },
+      "Burbuja": { label: "Burbuja", cls: "mv-burbuja" },
+      "Rayo": { label: "Rayo", cls: "mv-rayo" }
+    };
+
+    /**
+     * Estructura de datos completa y ordenada por región, ciudad/pueblo y escenarios de batalla.
+     */
+    const GUIDE_DATA = [
+      {
+        id: "hoenn",
+        title: "Región Hoenn",
+        cities: [
+          {
+            order: "1",
+            name: "Pueblo Azuliza 1",
+            lines: [
+              { text: "Blastoise Salpicar + Vanilluxe Ventisca", sub: false },
+              { text: "Frente Staraptor y Hitmontop ➜ Blastoise Especial X + Vanilluxe Ventisca", sub: false },
+              { text: "Turno 2 Blastoise Salpicar + Vanilluxe Ventisca", sub: true },
+              { text: "Turno 3 Blastoise Salpicar + Vanilluxe Ventisca", sub: true }
+            ]
+          },
+          {
+            order: "2",
+            name: "Pueblo Lavacalda 2",
+            type: "Fuego",
+            lines: [
+              { text: "Blastoise Salpicar + Vanilluxe Danza Lluvia", sub: false },
+              { text: "Frente a Houndoom ➜ Blastoise Salpicar + Vanilluxe Vozarrón", sub: false },
+              { text: "Frente Arcanine Nivel 85 ➜ Blastoise Salpicar + Vanilluxe Danza Lluvia", sub: false },
+              { text: "Turno 2 Blastoise Salpicar + Vanilluxe Especial X (en Blastoise)", sub: true },
+              { text: "Turno 3 Blastoise Salpicar + Vanilluxe Danza Lluvia", sub: true }
+            ]
+          },
+          {
+            order: "3",
+            name: "Ciudad Malvalona 3",
+            type: "Eléctrico",
+            lines: [
+              { text: "Heatran Estallido + Meloetta Vozarrón", sub: false }
+            ]
+          },
+          {
+            order: "4",
+            name: "Ciudad Férrica 4",
+            lines: [
+              { text: "Blastoise Salpicar + Weezing Buena Baza", sub: false }
+            ]
+          },
+          {
+            order: "5",
+            name: "Ciudad Arborada 5",
+            lines: [
+              { text: "Frente a Pelipper ➜ Blastoise Refuerzo + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 Vanilluxe Ventisca + Meloetta Vozarrón", sub: true },
+              { text: "Frente Swellow ➜ Blastoise Sorpresa + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 Vanilluxe Ventisca + Meloetta Vozarrón", sub: true },
+              { text: "Frente Masquerain ➜ Blastoise Refuerzo + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 + Meloetta Vozarrón + Vanilluxe Rayo Hielo a (Altaria/Noctowl)", sub: true },
+              { text: "Otros Pokémon ➜ Blastoise Salpicar + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 Vanilluxe Ventisca + Meloetta Vozarrón", sub: true }
+            ],
+            reminder: "Ve al Centro Pokémon"
+          }
+        ]
+      },
+      {
+        id: "teselia",
+        title: "Región Teselia",
+        cities: [
+          {
+            order: "1",
+            name: "Ciudad Porcelana 1",
+            lines: [
+              { text: "Frente a Gliscor ➜ Heatran Estallido + Blastoise Burbuja", sub: false },
+              { text: "Frente a Shuckle / Volcarona ➜ Heatran Calcinación + Blastoise Salpicar", sub: false },
+              { text: "Frente a Flygon u Otro ➜ Heatran Estallido + Blastoise Salpicar", sub: false }
+            ]
+          },
+          {
+            order: "2",
+            name: "Ciudad Mayólica 2",
+            lines: [
+              { text: "Frente a Milotic ➜ Blastoise Especial X + Meloetta Vozarrón", sub: false },
+              { text: "Turno 2 Blastoise Cambia por Typhlosion + Meloetta Vozarrón", sub: true },
+              { text: "Turno 3 Typhlosion Estallido + Meloetta Vozarrón", sub: true },
+              { text: "Frente Emolga ➜ Blastoise Salpicar + Meloetta Vozarrón", sub: false },
+              { text: "Turno 2 Blastoise Salpicar + Meloetta Especial X", sub: true },
+              { text: "Turno 3 Blastoise Salpicar + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Galvantula / x2 Intimidación ➜ Blastoise Salpicar + Meloetta Vozarrón", sub: false }
+            ],
+            reminder: "Usar Baya Zanama en Salpicar"
+          },
+          {
+            order: "3",
+            name: "Ciudad Fayenza 3",
+            lines: [
+              { text: "Frente a Sandslash ➜ Blastoise Salpicar + Vanilluxe Danza Lluvia", sub: false },
+              { text: "Frente a Steelix ➜ Cambia a Vanilluxe por Weezing + Blastoise Salpicar", sub: false },
+              { text: "Turno 2 Blastoise Salpicar + Weezing Buena Baza", sub: true },
+              { text: "Turno 3 Blastoise Salpicar + Weezing Buena Baza", sub: true },
+              { text: "Frente a Torterra ➜ Vanilluxe Ventisca + Blastoise Salpicar", sub: false },
+              { text: "Turno 2 Cambia a Vanilluxe por Meloetta + Blastoise Salpicar", sub: true },
+              { text: "Turno 3 Blastoise Salpicar + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Excadrill ➜ Cambia a Vanilluxe por Weezing + Blastoise Salpicar", sub: false },
+              { text: "Turno 2 Frente a Flygon ➜ Weezing Especial X + Blastoise Salpicar", sub: true },
+              { text: "Turno 3 No Salió Flygon ➜ Weezing Danza Lluvia + Blastoise Salpicar", sub: true }
+            ],
+            reminder: "Curar a Blastoise"
+          },
+          {
+            order: "4",
+            name: "Ciudad Loza 4",
+            lines: [
+              { text: "Vanilluxe Ventisca + Blastoise Salpicar", sub: false },
+              { text: "Frente a Unfezant ➜ Blastoise Salpicar + Vanilluxe Vozarrón", sub: false },
+              { text: "Turno 2 Blastoise Salpicar + Vanilluxe Vozarrón", sub: true },
+              { text: "Si Tienes al Frente a Pelipper + Swanna ➜ Blastoise Salpicar + Vanilluxe Vozarrón", sub: false },
+              { text: "Si Tarjeta Roja Te Cambia ➜ Usar Ataque en Área + Blastoise Salpicar", sub: true },
+              { text: "No tiene Tarjeta Roja ➜ Blastoise Salpicar + Vanilluxe Especial X", sub: true }
+            ]
+          },
+          {
+            order: "5",
+            name: "Ciudad Teja 5",
+            lines: [
+              { text: "Typhlosion Humareda + Heatran Precisión X", sub: false },
+              { text: "Turno 2 y 3 Typhlosion Humareda + Heatran Humareda", sub: true },
+              { text: "Frente a Beartic ➜ Typhlosion Humareda + Heatran Estallido", sub: false },
+              { text: "Turno 2 Typhlosion Precisión X + Heatran Estallido", sub: true },
+              { text: "Turno 3 Typhlosion Humareda + Heatran Estallido", sub: true }
+            ],
+            reminder: "Cura los PP de Heatran si hace falta"
+          },
+          {
+            order: "6",
+            name: "Ciudad Gres 6",
+            lines: [
+              { text: "Tipo Planta ➜ Typhlosion Estallido + Weezing Calcinación", sub: false },
+              { text: "Tipo Agua ➜ Typhlosion Estallido + Weezing Especial X", sub: false },
+              { text: "Turno 2 y 3 ➜ Estallido + Weezing Buena Baza", sub: true },
+              { text: "Frente a Slowbro ➜ Typhlosion Calcinación + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 Blastoise Refuerzo + Meloetta Vozarrón", sub: true },
+              { text: "Tipo Fuego ➜ Vanilluxe Danza Lluvia + Blastoise Salpicar", sub: false },
+              { text: "Turno 2 ➜ Vanilluxe Zanama a Salpicar + Blastoise Salpicar", sub: true }
+            ]
+          },
+          {
+            order: "7",
+            name: "Ciudad Caolín 7",
+            lines: [
+              { text: "Vanilluxe Ventisca + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Serperior y Dragonite ➜ Vanilluxe Ventisca + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Aggron ➜ Vanilluxe Ventisca + Meloetta Psíquico", sub: false },
+              { text: "Frente a Druddigon ➜ Vanilluxe Especial X + Meloetta Vozarrón", sub: false },
+              { text: "Turno 2 Vanilluxe Ventisca + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Hydreigon", sub: false },
+              { text: "Método 1 Vanilluxe Ventisca + Meloetta Rayo a Aggron + Haxorus", sub: true },
+              { text: "Método 2 Vanilluxe Ventisca + Cambia a Meloetta por Typhlosion + Typhlosion Estallido + Vanilluxe Ventisca", sub: true }
+            ],
+            reminder: "Curar en el Centro Pokémon"
+          }
+        ]
+      },
+      {
+        id: "kanto",
+        title: "Región Kanto",
+        cities: [
+          {
+            order: "1",
+            name: "Ciudad Carmín 1",
+            lines: [
+              { text: "Heatran Estallido + Meloetta Vozarrón", sub: false },
+              { text: "Si hay Lluvia ➜ Heatran Especial X + Meloetta Vozarrón", sub: false }
+            ]
+          },
+          {
+            order: "2",
+            name: "Ciudad Azafrán 2",
+            lines: [
+              { text: "Typhlosion + Weezing", sub: false },
+              { text: "Frente a Metagross ➜ Typhlosion Estallido + Cambia a Weezing por Blastoise", sub: false },
+              { text: "Turno 2 y 3 ➜ Typhlosion + Blastoise Salpicar", sub: true },
+              { text: "Slowking / Lapras ➜ Typhlosion Estallido + Weezing Buena Baza", sub: false },
+              { text: "Frente a Scizor ➜ Typhlosion Estallido + Cambia a Weezing por Meloetta", sub: false },
+              { text: "Turno 2 y 3 ➜ Typhlosion Estallido + Meloetta Vozarrón", sub: true },
+              { text: "Frente Snorlax", sub: false },
+              { text: "Método 1 Typhlosion Estallido + Weezing Ataque Especial", sub: true },
+              { text: "Turno 2 Typhlosion Estallido + Weezing Velocidad X", sub: true },
+              { text: "Método 2 Typhlosion Estallido + Weezing Explosión", sub: true },
+              { text: "Turno 2 Meloetta Vozarrón + Blastoise Refuerzo", sub: true }
+            ],
+            reminder: "Ir al Centro Pokémon + Equipar las Gafas Elegidas a Heatran"
+          },
+          {
+            order: "3",
+            name: "Ciudad Azulona 3",
+            lines: [
+              { text: "Heatran Estallido + Typhlosion Cambia por Weezing", sub: false },
+              { text: "Weezing Buena Baza + Heatran Estallido", sub: true }
+            ]
+          },
+          {
+            order: "4",
+            name: "Ciudad Fucsia 4 (Aquí falta traducir)",
+            lines: [
+              { text: "Meloetta + Heatran", sub: false },
+              { text: "Frente Ariados / Beedrill ➜ Heatran Estallido + Meloetta Ida y Vuelta", sub: false },
+              { text: "Turno 2 Heatran Estallido + Weezing Buena Baza", sub: true },
+              { text: "Frente a Tentacruel ➜ Heatran Especial X + Meloetta Vozarrón", sub: false },
+              { text: "Turno 2 ➜ Heatran Estallido + Meloetta Vozarrón", sub: true },
+              { text: "Frente Nidoqueen ➜ Heatran Estallido + Meloetta Velocidad X", sub: false },
+              { text: "No está Zoroark (Camuflado) ➜ Heatran Estallido + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Gengar / Electrode", sub: false }
+            ]
+          },
+          {
+            order: "5",
+            name: "Ciudad Plateada 5",
+            lines: [
+              { text: "Blastoise + Weezing", sub: false },
+              { text: "Frente a Toxicroak ➜ Blastoise Salpicar + Weezing Buena Baza", sub: false },
+              { text: "Frente a Tyranitar y Golem ➜ Blastoise Salpicar + Weezing Precisión X", sub: true },
+              { text: "Blastoise Salpicar + Weezing Buena Baza", sub: true },
+              { text: "Frente a Swampert ➜ Blastoise Salpicar + Weezing Buena Baza a (Steelix o Crobat)", sub: false },
+              { text: "Frente a Ludicolo ➜ Blastoise Salpicar + Weezing Buena Baza a (Kabutops o Relicanth)", sub: false },
+              { text: "Frente a Slowbro ➜ Blastoise Salpicar + Weezing Explosión", sub: false },
+              { text: "Turno 2 y 3 Vanilluxe Ventisca + Meloetta Vozarrón", sub: true }
+            ]
+          },
+          {
+            order: "6",
+            name: "Ciudad Celeste 6",
+            lines: [
+              { text: "Weezing + Meloetta", sub: false },
+              { text: "Frente a Carracosta ➜ Meloetta Rayo (tortuga) + Weezing Explosión ➜ Turno 2 Typhlosion Humareda + Heatran Estallido", sub: false },
+              { text: "Otros Pokémon ➜ Meloetta Vozarrón + Weezing Especial X ➜ Meloetta Vozarrón + Weezing Calcinación", sub: true },
+              { text: "Frente a Carracosta ➜ Blastoise Salpicar + Weezing Explosión ➜ Turno 2 Typhlosion Humareda + Heatran Estallido", sub: false },
+              { text: "Frente a Poliwrath ➜ Blastoise Refuerzo + Weezing Explosión ➜ Typhlosion Humareda + Heatran Humareda", sub: false },
+              { text: "Frente a Kingdra ➜ Blastoise Refuerzo + Weezing Explosión ➜ Vanilluxe Ventisca + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Golduck ➜ Blastoise Refuerzo + Weezing Explosión ➜ Typhlosion Humareda + Heatran Estallido", sub: false },
+              { text: "Frente a Floatzel ➜ Blastoise Sorpresa (a Floatzel) + Weezing Explosión ➜ Meloetta Vozarrón + Heatran Estallido", sub: false }
+            ],
+            reminder: "Curar en el Centro Pokémon"
+          }
+        ]
+      },
+      {
+        id: "johto",
+        title: "Región Johto",
+        cities: [
+          {
+            order: "1",
+            name: "Ciudad Olivo 1",
+            lines: [
+              { text: "Typhlosion Estallido + Weezing Buena Baza", sub: false },
+              { text: "Frente a Metagross ➜ Typhlosion Estallido + Weezing Especial X", sub: false },
+              { text: "Turno 2 Weezing Buena Baza + Typhlosion Estallido", sub: true },
+              { text: "Frente a Klinklang ➜ Typhlosion Estallido + Weezing Buena Baza", sub: false },
+              { text: "Si Entran Blastoise + Togekiss: Especial X + Estallido", sub: true }
+            ]
+          },
+          {
+            order: "2",
+            name: "Ciudad Trigal",
+            lines: [
+              { text: "Meloetta + Typhlosion", sub: false },
+              { text: "Frente a Tauros ➜ Meloetta Vozarrón + Typhlosion Calcinación", sub: false },
+              { text: "Frente a Dodrio ➜ Meloetta Vozarrón + Typhlosion Estallido", sub: false },
+              { text: "Frente a Ambipom ➜ Typhlosion Humareda + Meloetta Ida y Vuelta en Ambipom", sub: false },
+              { text: "Typhlosion Humareda + Heatran Humareda", sub: true },
+              { text: "Frente a Cinccino ➜ Typhlosion Estallido + Meloetta Ida y Vuelta a Cinccino", sub: false },
+              { text: "Typhlosion Estallido + Weezing Buena Baza", sub: true },
+              { text: "Frente Ursaring ➜ Typhlosion Estallido + Cambia a Meloetta por Weezing", sub: false },
+              { text: "Typhlosion Estallido + Weezing Buena Baza", sub: true }
+            ],
+            reminder: "Recuperar PP en Estallido"
+          },
+          {
+            order: "3",
+            name: "Pueblo Azalea",
+            lines: [
+              { text: "Meloetta + Heatran", sub: false },
+              { text: "Frente a Scizor + Forretress ➜ Meloetta Ida y Vuelta + Heatran Humareda", sub: false },
+              { text: "Heatran Humareda + Typhlosion Humareda", sub: true },
+              { text: "Frente a Ledian / Scyther ➜ Cambia a Meloetta por Typhlosion + Heatran Humareda", sub: false },
+              { text: "Heatran Humareda + Typhlosion Humareda", sub: true },
+              { text: "Frente a Butterfree ➜ Meloetta Ida y Vuelta + Heatran Humareda", sub: false },
+              { text: "Heatran Humareda + Typhlosion Humareda", sub: true },
+              { text: "Frente a Beedrill ➜ Heatran Estallido + Meloetta Ida y Vuelta Entra con Weezing", sub: false },
+              { text: "Heatran Estallido + Weezing Especial X", sub: true }
+            ]
+          },
+          {
+            order: "4",
+            name: "Pueblo Caoba",
+            lines: [
+              { text: "Typhlosion + Heatran", sub: false },
+              { text: "Frente a Articuno ➜ Typhlosion Día Soleado + Heatran Estallido", sub: false },
+              { text: "Cambiar Typhlosion por Weezing Buena Baza + Heatran Estallido", sub: true },
+              { text: "Frente a Mamoswine ➜ Heatran Precisión X + Typhlosion Humareda", sub: false },
+              { text: "Heatran Humareda + Typhlosion Humareda", sub: true },
+              { text: "Frente a Froslass ➜ Typhlosion Día Soleado + Heatran Estallido", sub: false },
+              { text: "Frente a Walrein / Dewgong ➜ Typhlosion Especial X + Heatran Estallido", sub: false },
+              { text: "Typhlosion Día Soleado + Heatran Estallido", sub: true },
+              { text: "Frente a Glalie ➜ Typhlosion Estallido + Cambiar a Heatran por Meloetta", sub: false },
+              { text: "Meloetta Rayo + Typhlosion", sub: true }
+            ]
+          },
+          {
+            order: "5",
+            name: "Ciudad Malva",
+            lines: [
+              { text: "Vanilluxe Ventisca + Blastoise Salpicar", sub: false },
+              { text: "Si Llueve ➜ Rayo Hielo (al que pone lluvia) + Blastoise Salpicar", sub: true },
+              { text: "Cambiar a Vanilluxe por Meloetta + Salpicar", sub: true },
+              { text: "Frente a Pidgeot ➜ Vanilluxe Ventisca + Blastoise Velocidad X", sub: false },
+              { text: "Vanilluxe Ventisca + Blastoise Salpicar", sub: true }
+            ]
+          },
+          {
+            order: "6",
+            name: "Ciudad Endrino",
+            lines: [
+              { text: "Weezing Explosión + Blastoise Refuerzo", sub: false },
+              { text: "Vanilluxe Ventisca + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Blastoise", sub: false },
+              { text: "Weezing Explosión + Blastoise Sorpresa (a Blastoise)", sub: true },
+              { text: "Vanilluxe Ventisca + Meloetta Vozarrón", sub: true }
+            ],
+            reminder: "Curar en el Centro Pokémon"
+          }
+        ]
+      },
+      {
+        id: "sinnoh",
+        title: "Región Sinnoh",
+        cities: [
+          {
+            order: "1",
+            name: "Ciudad Pirita",
+            lines: [
+              { text: "Blastoise Salpicar + Weezing Buena Baza", sub: false },
+              { text: "Frente a Tyranitar + Excadrill ➜ Weezing Especial X + Blastoise Salpicar", sub: false },
+              { text: "Blastoise Salpicar + Weezing Buena Baza", sub: true },
+              { text: "Frente a Probopass ➜ Blastoise Salpicar + Cambiar a Weezing por Vanilluxe", sub: false },
+              { text: "Blastoise Salpicar + Vanilluxe Ventisca", sub: true }
+            ]
+          },
+          {
+            order: "2",
+            name: "Ciudad Rocavelo",
+            lines: [
+              { text: "Blastoise Refuerzo + Typhlosion Estallido", sub: false },
+              { text: "Frente a Mienshao ➜ Blastoise Burbuja + Typhlosion Estallido", sub: false },
+              { text: "Frente a Breloom ➜ Blastoise Especial X + Typhlosion Estallido", sub: false },
+              { text: "Blastoise Refuerzo + Typhlosion Estallido", sub: true }
+            ]
+          },
+          {
+            order: "3",
+            name: "Ciudad Marina",
+            lines: [
+              { text: "Blastoise Salpicar + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Lanturn ➜ Blastoise Especial X + Meloetta Vozarrón", sub: false },
+              { text: "Blastoise Salpicar + Meloetta Vozarrón", sub: true }
+            ]
+          },
+          {
+            order: "4",
+            name: "Ciudad Vetusta",
+            lines: [
+              { text: "Meloetta + Heatran", sub: false },
+              { text: "Frente a Leavanny / Whimsicott / Rotom ➜ Meloetta Ida y Vuelta + Heatran Humareda", sub: false },
+              { text: "Heatran Humareda + Typhlosion Humareda", sub: true },
+              { text: "Frente a Roserade ➜ Heatran Estallido + Meloetta Vozarrón", sub: false },
+              { text: "Frente a Ninetales ➜ Heatran Calcinación + Meloetta Vozarrón", sub: false },
+              { text: "Cambiar a Meloetta por Weezing Buena Baza", sub: true }
+            ]
+          },
+          {
+            order: "5",
+            name: "Ciudad Pradera",
+            lines: [
+              { text: "Typhlosion + Weezing", sub: false },
+              { text: "Frente a Sharpedo + Mantine ➜ Typhlosion Calcinación + Weezing Explosión", sub: false },
+              { text: "Heatran Especial X + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Ludicolo ➜ Typhlosion Día Soleado + Weezing Explosión", sub: false },
+              { text: "Heatran Estallido + Meloetta Vozarrón", sub: true },
+              { text: "Frente a Sharpedo + Gyarados ➜ Typhlosion Calcinación + Weezing Explosión", sub: false },
+              { text: "Heatran Estallido + Meloetta Vozarrón", sub: true },
+              { text: "Otros Pokémon ➜ Typhlosion Día Soleado + Weezing Explosión", sub: false },
+              { text: "Heatran Calcinación + Meloetta Vozarrón", sub: true }
+            ],
+            reminder: "Vuelve a equipar Pañuelo Elegido a Heatran — ¿ya está?"
+          }
+        ]
+      }
+    ];
+
+    /**
+     * Escapa caracteres especiales para construir expresiones regulares seguras.
+     */
+    function escapeRegExp(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    /**
+     * Construye expresiones regulares combinadas para detectar:
+     * 1) Nombres de Pokémon (reemplazados únicamente por su sprite de Pokémon Showdown)
+     * 2) Ataques y objetos X (reemplazados por insignias con colores únicos)
+     */
+    const POKEMON_KEYS = Object.keys(POKEMON_SLUGS).sort((a, b) => b.length - a.length);
+    const MOVE_KEYS = Object.keys(MOVE_STYLES).sort((a, b) => b.length - a.length);
+
+    const TOKEN_REGEX = new RegExp(
+      `(?<![A-Za-zÁÉÍÓÚáéíóúÑñ])(${[...MOVE_KEYS, ...POKEMON_KEYS].map(escapeRegExp).join("|")})(?![A-Za-zÁÉÍÓÚáéíóúÑñ])`,
+      "g"
+    );
+
+    /**
+     * Crea un fragmento HTML con SOLO el sprite de Pokémon Showdown (sin nombre visible,
+     * manteniendo alt y title para accesibilidad y vista al pasar el cursor).
+     */
+    function createPokemonSpriteOnlyHTML(matchedName) {
+      const slug = POKEMON_SLUGS[matchedName] || matchedName.toLowerCase();
+      const displayName = matchedName === "Blastoice" ? "Blastoise"
+        : matchedName === "Vaniluxe" ? "Vanilluxe"
+        : matchedName === "Typlhosion" || matchedName === "Tyhlosion" || matchedName === "Typlosion" || matchedName === "Typhlsion" || matchedName === "Typlhsion" || matchedName === "Typlhsoion" ? "Typhlosion"
+        : matchedName === "Haundoom" ? "Houndoom"
+        : matchedName === "Fluygon" ? "Flygon"
+        : matchedName === "Toxicoak" ? "Toxicroak"
+        : matchedName === "Relican" ? "Relicanth"
+        : matchedName === "Aimbipom" ? "Ambipom"
+        : matchedName === "Breeloom" ? "Breloom"
+        : matchedName;
+
+      const gen5Url = `https://play.pokemonshowdown.com/sprites/gen5/${slug}.png`;
+
+      return `<span class="pk-sprite-only" title="${displayName}"><img class="pk-sprite" src="${gen5Url}" data-pk="${slug}" alt="${displayName}" title="${displayName}"></span>`;
+    }
+
+    /**
+     * Crea una insignia de color único para cada ataque u objeto de combate.
+     */
+    function createMoveBadgeHTML(matchedMove) {
+      const moveInfo = MOVE_STYLES[matchedMove];
+      if (!moveInfo) return matchedMove;
+      return `<span class="move-badge ${moveInfo.cls}">${moveInfo.label}</span>`;
+    }
+
+    /**
+     * Transforma una línea de texto plano en HTML reemplazando cada Pokémon por su sprite
+     * (sin texto visible) y cada ataque por su insignia de color distinto.
+     */
+    function formatStrategyLineHTML(rawText) {
+      const escaped = rawText
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      return escaped.replace(TOKEN_REGEX, (match) => {
+        if (MOVE_STYLES[match]) {
+          return createMoveBadgeHTML(match);
+        }
+        if (POKEMON_SLUGS[match]) {
+          return createPokemonSpriteOnlyHTML(match);
+        }
+        return match;
+      });
+    }
+
+    /**
+     * Configura respaldo de sprites desde Pokémon Showdown (gen5 -> dex -> insignia de respaldo).
+     */
+    function attachSpriteFallbacks() {
+      const images = document.querySelectorAll("img[data-pk]");
+      images.forEach((img) => {
+        img.addEventListener("error", function onSpriteError() {
+          const slug = this.getAttribute("data-pk");
+          const stage = this.getAttribute("data-fallback-stage") || "gen5";
+
+          if (stage === "gen5") {
+            this.setAttribute("data-fallback-stage", "dex");
+            this.src = `https://play.pokemonshowdown.com/sprites/dex/${slug}.png`;
+          } else {
+            this.removeEventListener("error", onSpriteError);
+            const badge = document.createElement("span");
+            badge.className = "pk-fallback-badge";
+            badge.textContent = this.alt || slug;
+            this.replaceWith(badge);
+          }
+        });
+      });
+    }
+
+    /**
+     * Pokémon del equipo principal (nombre a mostrar por slug). Solo estos aparecen
+     * como sprites grandes en cada ruta; los rivales siguen en el detalle de estrategia.
+     */
+    const TEAM_DISPLAY = {
+      blastoise: "Blastoise",
+      vanilluxe: "Vanilluxe",
+      heatran: "Heatran",
+      typhlosion: "Typhlosion",
+      meloetta: "Meloetta",
+      weezing: "Weezing"
+    };
+
+    /** Colores del texto "Tipo X" (clave sin tildes y en minúsculas). */
+    const TYPE_COLORS = {
+      fuego: "#ff6b6b", agua: "#4dabf7", planta: "#51cf66", electrico: "#ffd43b",
+      hielo: "#66d9e8", lucha: "#e8590c", veneno: "#be4bdb", tierra: "#d9a05b",
+      volador: "#91a7ff", psiquico: "#f783ac", bicho: "#a9e34b", roca: "#c2a878",
+      fantasma: "#9775fa", dragon: "#7048e8", siniestro: "#868e96", acero: "#ced4da",
+      hada: "#faa2c1", normal: "#adb5bd"
+    };
+
+    function normalizeKey(str) {
+      return String(str).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    /** Quita el número de orden del nombre (el orden se muestra en el avatar). */
+    function getRouteName(city) {
+      const order = String(city.order || "").trim();
+      if (!order) return city.name;
+      return city.name.replace(new RegExp("\\s+" + order + "(?=\\s|$)"), "");
+    }
+
+    /**
+     * Pokémon propios usados en la ruta, en orden de aparición y sin repetir.
+     * Ignora lo que va antes de "➜" (rival) y las líneas "Si entran ..." (rival).
+     */
+    function getCityTeamSlugs(city) {
+      const slugs = [];
+      city.lines.forEach((line) => {
+        let text = line.text;
+        if (/^Si\s+entran/i.test(text)) return;
+        const arrow = text.indexOf("➜");
+        if (arrow >= 0) text = text.slice(arrow + 1);
+        for (const m of text.matchAll(TOKEN_REGEX)) {
+          const slug = POKEMON_SLUGS[m[1]];
+          if (slug && TEAM_DISPLAY[slug] && !slugs.includes(slug)) slugs.push(slug);
+        }
+      });
+      return slugs;
+    }
+
+    /**
+     * Renderiza todas las regiones, ciudades y estrategias dentro de #guide-content.
+     */
+    function renderGuide() {
+      const container = document.getElementById("guide-content");
+      if (!container) return;
+
+      try {
+        const htmlSections = GUIDE_DATA.map((region) => {
+          const citiesHtml = region.cities.map((city) => {
+            const linesHtml = city.lines.map((line) => {
+              const subClass = line.sub ? " sub-step" : "";
+              const prefix = line.sub ? "↳ " : "• ";
+              return `<li class="strategy-item${subClass}"><span>${prefix}</span>${formatStrategyLineHTML(line.text)}</li>`;
+            }).join("");
+
+            const reminderHtml = city.reminder
+              ? `<div class="reminder-box"><span>📌</span>${formatStrategyLineHTML(city.reminder)}</div>`
+              : "";
+
+            const routeName = getRouteName(city);
+            const teamSlugs = getCityTeamSlugs(city);
+            const typeColor = city.type ? (TYPE_COLORS[normalizeKey(city.type)] || "var(--accent)") : "";
+            const typeHtml = city.type
+              ? `<div class="route-type" style="color: ${typeColor};">Tipo ${city.type}</div>`
+              : "";
+            const avatarImg = city.avatar
+              ? `<img src="${city.avatar}" alt="${routeName}" onerror="this.remove()">`
+              : "";
+            const chipHtml = teamSlugs.length
+              ? `<div class="route-chip">${teamSlugs.map((s) => TEAM_DISPLAY[s]).join(" + ")}</div>`
+              : "";
+            const monsHtml = teamSlugs.map((s) => `
+                  <div class="route-mon">
+                    <img src="https://play.pokemonshowdown.com/sprites/gen5/${s}.png" data-pk="${s}" alt="${TEAM_DISPLAY[s]}" title="${TEAM_DISPLAY[s]}">
+                    <span class="route-mon-name">${TEAM_DISPLAY[s]}</span>
+                  </div>`).join("");
+
+            return `
+              <article class="route-card">
+                <div class="route-main">
+                  <div class="route-leader">
+                    <div class="route-avatar" title="Parada ${city.order}">
+                      <span class="route-avatar-num">${city.order}</span>
+                      ${avatarImg}
+                    </div>
+                    <h3 class="route-name">${routeName}</h3>
+                    ${typeHtml}
+                    ${chipHtml}
+                  </div>
+                  <div class="route-team">${monsHtml}</div>
+                </div>
+                <div class="route-strategy">
+                  <ul class="strategy-list">
+                    ${linesHtml}
+                  </ul>
+                  ${reminderHtml}
+                </div>
+              </article>
+            `;
+          }).join("");
+
+          return `
+            <section id="region-${region.id}" class="region-section is-visible" data-region-panel="${region.id}" aria-label="${region.title}">
+              <div class="region-header">
+                <h2 class="text-xl sm:text-2xl font-bold">${region.title}</h2>
+                <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full" style="background-color: var(--accent-soft); color: var(--accent); border: 1.5px solid var(--accent);">
+                  ${region.cities.length} ${region.cities.length === 1 ? "parada" : "paradas"}
+                </span>
+              </div>
+              <div class="grid grid-cols-1 gap-4">
+                ${citiesHtml}
+              </div>
+            </section>
+          `;
+        }).join("");
+
+        container.innerHTML = htmlSections;
+        attachSpriteFallbacks();
+      } catch (err) {
+        container.innerHTML = `<div class="reminder-box">Ocurrió un error al cargar la guía: ${err.message}</div>`;
+      }
+    }
+
+    /**
+     * Inicializa el selector de 8 temas con guardado en localStorage.
+     */
+    function initThemeSwitcher() {
+      const themeButtons = document.querySelectorAll(".theme-btn");
+      const savedTheme = localStorage.getItem("meloetta-guide-theme") || "slate";
+
+      function applyTheme(themeName) {
+        document.documentElement.setAttribute("data-theme", themeName);
+        localStorage.setItem("meloetta-guide-theme", themeName);
+        themeButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn.getAttribute("data-theme-value") === themeName);
+        });
+      }
+
+      applyTheme(savedTheme);
+
+      themeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const selected = btn.getAttribute("data-theme-value");
+          if (selected) applyTheme(selected);
+        });
+      });
+    }
+
+    /**
+     * Inicializa la interactividad de las pestañas de región.
+     */
+    function initRegionTabs() {
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const panels = document.querySelectorAll("[data-region-panel]");
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const selectedRegion = btn.getAttribute("data-region");
+
+          tabButtons.forEach((b) => b.classList.toggle("active", b === btn));
+
+          panels.forEach((panel) => {
+            const panelRegion = panel.getAttribute("data-region-panel");
+            const shouldShow = selectedRegion === "all" || selectedRegion === panelRegion;
+            panel.classList.toggle("is-visible", shouldShow);
+          });
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initThemeSwitcher();
+      renderGuide();
+      initRegionTabs();
+      attachSpriteFallbacks();
+    });
+  </script>
+</body>
+</html>
